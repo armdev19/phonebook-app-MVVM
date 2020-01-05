@@ -6,4 +6,6 @@
     <string name="login_btn_text">Log In</string>
     <string name="registration_btn_text">Registration</string>
     <string name="log_out_hint">Log Out</string>
+    <string name="details_toolbar_title">Details info</string>
+    <string name="contacts_toolbar_title">PhoneBook app</string>
 </resources>

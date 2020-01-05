@@ -5,7 +5,6 @@ import java.io.Serializable
 
 
 data class Contacts(
-
     @SerializedName("firstName")
     val firstName: String,
     @SerializedName("lastName")

@@ -3,6 +3,7 @@ package com.infernal93.phonebookappmvvm.views.activities
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_contacts.*
 class ContactsActivity : AppCompatActivity(), ContactsListener {
     private val TAG = "ContactsActivity"
 
+    private lateinit  var toolbar: Toolbar
     private lateinit var mAdapter: ContactsAdapter
 
     @SuppressLint("WrongConstant")
@@ -27,12 +29,23 @@ class ContactsActivity : AppCompatActivity(), ContactsListener {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_contacts)
 
+        // Toolbar implementation
+
+//        setSupportActionBar(toolbar_contacts)
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar!!.setHomeButtonEnabled(true)
+//        supportActionBar!!.setDisplayShowTitleEnabled(false)
+//        .title = getString(R.string.contacts_toolbar_title)
+
+
         val binding: ActivityContactsBinding =
             DataBindingUtil.setContentView(this@ContactsActivity, R.layout.activity_contacts)
         val categoryViewModel: ContactsViewModel =
             ViewModelProviders.of(this@ContactsActivity).get(ContactsViewModel::class.java)
 
         binding.contactViewModel = categoryViewModel
+
+        binding.toolbarContacts.title = getString(R.string.contacts_toolbar_title)
 
 
         categoryViewModel.getContactsList().observe(this@ContactsActivity, Observer {
