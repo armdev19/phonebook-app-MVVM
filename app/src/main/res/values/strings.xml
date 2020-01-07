@@ -8,4 +8,16 @@
     <string name="log_out_hint">Log Out</string>
     <string name="details_toolbar_title">Details info</string>
     <string name="contacts_toolbar_title">PhoneBook app</string>
+    <string name="add_contact_first_name">Please write First Name</string>
+    <string name="add_contact_last_name">Please write Last Name</string>
+    <string name="save_hint">Save</string>
+    <string name="add_contact_title">Add Contact</string>
+    <string name="add_contact_phone">Please write phone number</string>
+    <string name="add_contact_email">Please write email</string>
+    <string name="add_contact_notes">Please write notes</string>
+    <string name="empty_name">Please write correct Name</string>
+    <string name="empty_last_name">Please write correct Last Name</string>
+    <string name="empty_phone">Please write correct Phone number</string>
+    <string name="empty_email">Please write correct Email adress</string>
+    <string name="empty_notes">Please write correct Notes</string>
 </resources>

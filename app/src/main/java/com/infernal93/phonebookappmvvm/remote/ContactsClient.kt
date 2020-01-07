@@ -12,6 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
+
 /**
  * Created by Armen Mkhitaryan on 03.01.2020.
  */
@@ -36,10 +37,7 @@ class ContactsClient {
                     val original = chain.request()
                     val originalHttpUrl = original.url
                     val url = originalHttpUrl.newBuilder()
-
                         //.addQueryParameter("apikey", KEY)
-
-
                         .build()
                     val requestBuilder = original.newBuilder()
                         .url(url)
@@ -54,6 +52,7 @@ class ContactsClient {
             httpClient.addInterceptor(logging)
             return httpClient.build()
         }
+
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -61,7 +60,7 @@ class ContactsClient {
             .build()
 
         val api: ContactsApi = retrofit.create(ContactsApi::class.java)
-        api.fetchAllContacts().enqueue(object : Callback<List<Contacts>>{
+        api.fetchAllContacts().enqueue(object : Callback<List<Contacts>> {
             override fun onFailure(call: Call<List<Contacts>>, t: Throwable) {
 
             }

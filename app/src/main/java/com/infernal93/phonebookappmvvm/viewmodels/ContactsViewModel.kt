@@ -11,9 +11,20 @@ import com.infernal93.phonebookappmvvm.remote.ContactsClient
 
 class ContactsViewModel : ViewModel() {
 
+    var conta: Contacts? = null
 
     fun getContactsList(): MutableLiveData<ArrayList<Contacts>> {
 
         return ContactsClient().loadContacts()
     }
+
+    fun insertItem(contacts: Contacts): Contacts {
+        conta = contacts
+        return conta as Contacts
+    }
+
+    fun add(): Contacts? {
+        return conta
+    }
+
 }

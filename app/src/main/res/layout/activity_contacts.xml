@@ -12,7 +12,7 @@
             type="com.infernal93.phonebookappmvvm.viewmodels.ContactsViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/root_contacts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,7 +26,19 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_contacts"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar_contacts"/>
 
-    </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/add_new_contact_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_add_new_contact"
+            android:background="@drawable/bg_floating_btn"
+            android:layout_margin="16dp" />
+
+    </RelativeLayout>
 </layout>
