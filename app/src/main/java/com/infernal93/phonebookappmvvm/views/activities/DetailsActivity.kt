@@ -8,7 +8,6 @@ import com.infernal93.phonebookappmvvm.entity.Contacts
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*
 
-
 class DetailsActivity : AppCompatActivity() {
     private val TAG = "DetailsActivity"
 

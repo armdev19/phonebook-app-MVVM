@@ -2,8 +2,6 @@ package com.infernal93.phonebookappmvvm.views.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,17 +12,15 @@ import com.infernal93.phonebookappmvvm.utils.shortToast
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_add_contact.*
 
-
 class AddContactActivity : AppCompatActivity() {
+    private val TAG = "AddContactActivity"
 
     companion object {
-        const val EXTRA_FIRST_NAME =
-            "com.infernal93.phonebookappmvvm.views.activities.EXTRA_FIRST_NAME"
-        const val EXTRA_LAST_NAME =
-            "com.infernal93.phonebookappmvvm.views.activities.EXTRA_LAST_NAME"
-        const val EXTRA_PHONE = "com.infernal93.phonebookappmvvm.views.activities.EXTRA_PHONE"
-        const val EXTRA_EMAIL = "com.infernal93.phonebookappmvvm.views.activities.EXTRA_EMAIL"
-        const val EXTRA_NOTES = "com.infernal93.phonebookappmvvm.views.activities.EXTRA_NOTES"
+        const val EXTRA_FIRST_NAME = "com.infernal93.EXTRA_FIRST_NAME"
+        const val EXTRA_LAST_NAME = "com.infernal93.EXTRA_LAST_NAME"
+        const val EXTRA_PHONE = "com.infernal93.EXTRA_PHONE"
+        const val EXTRA_EMAIL = "com.infernal93.EXTRA_EMAIL"
+        const val EXTRA_NOTES = "com.infernal93.EXTRA_NOTES"
         const val EXTRA_IMAGE = 1
     }
 
@@ -78,7 +74,6 @@ class AddContactActivity : AppCompatActivity() {
         val phone: String = add_contact_phone.text.toString()
         val email: String = add_contact_email.text.toString()
         val notes: String = add_contact_notes.text.toString()
-        //val image: String = add_contact_image.
 
         when {
             firstName.trim().isEmpty() -> {

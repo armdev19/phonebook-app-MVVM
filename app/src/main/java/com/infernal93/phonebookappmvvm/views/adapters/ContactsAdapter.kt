@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.infernal93.phonebookappmvvm.R
 import com.infernal93.phonebookappmvvm.entity.Contacts
 import com.infernal93.phonebookappmvvm.views.activities.DetailsActivity
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-
 
 /**
  * Created by Armen Mkhitaryan on 03.01.2020.
@@ -30,13 +28,11 @@ class ContactsAdapter (private val context: Context, private val mContactsList: 
     fun addItem(contactsModel: Contacts) {
         mContactsList.add(contactsModel)
         notifyDataSetChanged()
-        Toast.makeText(context, "OK", Toast.LENGTH_LONG).show()
     }
 
     fun sortByName() {
         mContactsList.sortBy { it.firstName }
         notifyDataSetChanged()
-        Toast.makeText(context, "OK", Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

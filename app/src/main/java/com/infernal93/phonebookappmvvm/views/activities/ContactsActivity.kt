@@ -3,25 +3,38 @@ package com.infernal93.phonebookappmvvm.views.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper
 import com.infernal93.phonebookappmvvm.R
-import com.infernal93.phonebookappmvvm.databinding.ActivityContactsBinding
+import com.infernal93.phonebookappmvvm.di.ContactsViewModelFactory
 import com.infernal93.phonebookappmvvm.entity.Contacts
 import com.infernal93.phonebookappmvvm.viewmodels.ContactsViewModel
 import com.infernal93.phonebookappmvvm.views.adapters.ContactsAdapter
 import com.infernal93.phonebookappmvvm.views.interfaces.ContactsListener
+import dagger.Binds
+import dagger.Component
+import dagger.Module
 import kotlinx.android.synthetic.main.activity_contacts.*
+import javax.inject.Inject
 
 
 class ContactsActivity : AppCompatActivity(), ContactsListener {
     private val TAG = "ContactsActivity"
 
-    private val contactsViewModel: ContactsViewModel? = null
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    lateinit var contactsViewModel: ContactsViewModel
+
+    private lateinit  var toolbar: Toolbar
+    private lateinit var addNewContactBtn: ImageButton
+
+
     companion object {
         const val ADD_CONTACT_REQUEST = 200
     }
@@ -31,37 +44,47 @@ class ContactsActivity : AppCompatActivity(), ContactsListener {
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_contacts)
+
+        toolbar = findViewById(R.id.toolbar_contacts)
+        addNewContactBtn = findViewById(R.id.add_new_contact_btn)
+
+        setSupportActionBar(toolbar)
+        toolbar.title = getString(R.string.contacts_toolbar_title)
 
 
-        val binding: ActivityContactsBinding =
-            DataBindingUtil.setContentView(this@ContactsActivity, R.layout.activity_contacts)
-        val contactsViewModel: ContactsViewModel =
-            ViewModelProviders.of(this@ContactsActivity).get(ContactsViewModel::class.java)
-
-        binding.contactViewModel = contactsViewModel
-
-        binding.addNewContactBtn.setOnClickListener {
+        addNewContactBtn.setOnClickListener {
             val intent = Intent(this@ContactsActivity, AddContactActivity::class.java)
             startActivityForResult(intent, ADD_CONTACT_REQUEST)
         }
 
-        binding.toolbarContacts.title = getString(R.string.contacts_toolbar_title)
-
-
+        DaggerContactsActivity_ContactsComponent.create().inject(this@ContactsActivity)
+        contactsViewModel = ViewModelProviders.of(this@ContactsActivity, factory).get(ContactsViewModel::class.java)
         contactsViewModel.getContactsList().observe(this@ContactsActivity, Observer {
 
             mAdapter = ContactsAdapter(this@ContactsActivity, it)
-
             recycler_contacts.layoutManager =
                 LinearLayoutManager(applicationContext, OrientationHelper.VERTICAL, false)
             recycler_contacts.adapter = mAdapter
             recycler_contacts.setHasFixedSize(true)
 
             mAdapter.sortByName()
-            //mAdapter.addItem(contactsModel = contactsViewModel.add()!!)
-            //mAdapter.notifyDataSetChanged()
         })
 
+    }
+
+    // Dagger create
+    @Component (modules = [ContactsModule::class])
+    interface ContactsComponent {
+
+        fun inject (activity: ContactsActivity)
+    }
+
+    @Module
+    abstract class ContactsModule {
+
+        @Binds
+    abstract fun bindViewModelFactory(factory: ContactsViewModelFactory): ViewModelProvider.Factory
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -76,11 +99,8 @@ class ContactsActivity : AppCompatActivity(), ContactsListener {
                 val contacts = Contacts(firstName = firstName.toString(), lastName = lastName.toString(), phone = phone.toString(),
                     email = email.toString(), notes = notes.toString(), images = "")
 
-                    contactsViewModel?.insertItem(contacts)
             }
         }
-
-
 
     override fun setupContactsList(contactsList: ArrayList<Contacts>) {
 

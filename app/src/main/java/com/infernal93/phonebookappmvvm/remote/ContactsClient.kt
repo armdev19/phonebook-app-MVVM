@@ -11,6 +11,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
+import javax.inject.Inject
 
 
 /**
@@ -18,7 +19,7 @@ import java.io.IOException
  */
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class ContactsClient {
+class ContactsClient @Inject constructor(){
 
     companion object {
         const val KEY = "5e0fc647b68f0802dd3e5f8b"
@@ -71,4 +72,5 @@ class ContactsClient {
         })
         return mutableLiveData
     }
+
 }
